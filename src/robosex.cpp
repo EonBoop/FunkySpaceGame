@@ -92,7 +92,7 @@ int main(){
     
     //spaceStuff fighter("./Red_Fighter.png", {0.0,0.0,0.00}, {{0.0,0.0},{0.0,0.0},{0.0,0.0}} );
     
-    spaceStuff fighter("/mnt/c/Users/0hmse/Documents/TieFighter.png", {0.0,0.0,0.00}, {{0.0,0.0},{0.0,0.0},{0.0,0.0}} );
+    spaceStuff fighter("/home/eon/fucking_around/c++/game/funkySpaceGame/assets/YShip.png", {0.0,0.0,0.00}, {{0.0,0.0},{0.0,0.0},{0.0,0.0}} );
     Camera2D camera = {0};
     camera.target = (Vector2{(float)fighter.myKinematics.pos.x+20.0f,(float)fighter.myKinematics.pos.y+20.0f});
     camera.offset = (Vector2){(float) GetScreenWidth()/2.0f,(float) GetScreenHeight()/2.0f};
