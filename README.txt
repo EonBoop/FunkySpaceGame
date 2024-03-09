@@ -6,6 +6,9 @@ My personal objectives
   LITTLE SPACE SHIP GOES FAST
   vibe with buddies
 
+We're using the Raylib library in C++ because I'm a masochist
+https://www.raylib.com/
+
 RoadMap
 
 Player Object
