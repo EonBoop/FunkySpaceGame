@@ -53,10 +53,10 @@ public:
 };
 
 void gravity(spaceStuff & stuff,Vector2 origin){
-  //origin.x=250;
-  //origin.y=250;
   Vector2 delta={origin.x-stuff.myKinematics.pos.x,origin.y-stuff.myKinematics.pos.y};
-  float magnitude=5/sqrt((delta.x*delta.x)+(delta.y*delta.y));
+  if (delta.x==0){delta.x=.1;};
+  if (delta.y==0){delta.y=.1;};
+  float magnitude=15/sqrt((delta.x*delta.x)+(delta.y*delta.y));
   float angle=atanf(delta.x/delta.y);
   
   if (delta.y>0){
