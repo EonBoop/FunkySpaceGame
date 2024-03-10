@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+init
+AAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+=======
 FUNKY SPACE GAME PEW PEW PEW
 
 My personal objectives
@@ -30,3 +34,4 @@ Map making
   save current position and velocity files to a text file
 
 
+>>>>>>> 5b9c93419a604e2bf4eecf9516f8fb65cec57676
