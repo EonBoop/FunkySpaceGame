@@ -30,6 +30,7 @@ const int screenHeight = 900;
 
 void doEverything(std::vector<spaceStuff> spaceList,std::vector<int> options){
   //gonna add some more options lol
+  //yeet this into the header file once it's semi finalized
   for (int j = 0;j <options.size();j++){     
     for (int i =0; i<spaceList.size();i++){
       switch(options[j]){
@@ -40,6 +41,9 @@ void doEverything(std::vector<spaceStuff> spaceList,std::vector<int> options){
         case 2:
           //make physics go brrrrrrr
           spaceList[i].animate();
+          break;
+        case 3:
+          spaceList[i].unload();
           break;
           //add more cases and methods to spaceStuff and doEverything as needed
        }
