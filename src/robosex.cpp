@@ -28,14 +28,19 @@ const int screenHeight = 900;
 
 }
 
-void doEverything(std::vector<spaceStuff> spaceList,){
+void doEverything(std::vector<spaceStuff> spaceList,std::vector<int> options){
   //gonna add some more options lol
-  for (int i =0; i<spaceList.size();i++){
-    spaceList[1]
-  }
-  
+  for (int j = 0;j <options.size();j++){     
+    for (int i =0; i<spaceList.size();i++){
+      switch(options[j]){
+        case 1:
+          //logic here
+          break;
+       }
+    };
+  };
 
-  return void
+  return ;
 }
 
 
