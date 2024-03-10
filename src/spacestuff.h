@@ -1,11 +1,12 @@
 #define SPACESTUFF_H
 #include "raylib.h"
-
-
-extern int test(){
-
-  return 1;
-}
+#include "string"
+#include <cmath>
+#include <cstdlib>
+#include <string>
+#include <filesystem>
+#include <math.h>
+#include <iostream>
 
 class spaceStuff{
 
@@ -28,7 +29,7 @@ public:
     myKinematics=inKinematics;
     myRotation=inRotation;
  };
-       
+
     void unload(){
     UnloadTexture(texture);
     return;
@@ -50,23 +51,6 @@ public:
     };
 
 };
-void drawgrid(){
-const int spacing = 50;
-const int screenWidth = 900;
-const int screenHeight = 900;
-
-  // Draw vertical lines
-        for (int x = 0; x <= GetScreenWidth(); x += spacing) {
-            DrawLine(x, 0, x, screenHeight, GRAY); // Vertical lines
-        }
-
-        // Draw horizontal lines
-        for (int y = 0; y <= GetScreenHeight(); y += spacing) {
-            DrawLine(0, y, screenWidth, y, GRAY); // Horizontal lines
-        }
-
-
-}
 
 void gravity(spaceStuff & stuff,Vector2 origin){
   //origin.x=250;
