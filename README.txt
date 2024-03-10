@@ -34,4 +34,7 @@ Map making
   save current position and velocity files to a text file
 
 
+Things that are actively annoying me 
+  Currently have files listed from my OS root directory instead of the programs root director
+
 >>>>>>> 5b9c93419a604e2bf4eecf9516f8fb65cec57676
