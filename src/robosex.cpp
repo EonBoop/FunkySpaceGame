@@ -34,8 +34,14 @@ void doEverything(std::vector<spaceStuff> spaceList,std::vector<int> options){
     for (int i =0; i<spaceList.size();i++){
       switch(options[j]){
         case 1:
-          //logic here
+          //draw shit on screen
+          spaceList[i].draw();
           break;
+        case 2:
+          //make physics go brrrrrrr
+          spaceList[i].animate();
+          break;
+          //add more cases and methods to spaceStuff and doEverything as needed
        }
     };
   };
