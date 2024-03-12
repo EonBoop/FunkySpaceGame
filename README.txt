@@ -12,6 +12,8 @@ My personal objectives
 
 We're using the Raylib library in C++ because I'm a masochist
 https://www.raylib.com/
+JSON library
+https://github.com/nlohmann/json?tab=readme-ov-file#sponsors
 
 RoadMap
 
