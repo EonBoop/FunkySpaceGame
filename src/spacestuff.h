@@ -53,6 +53,14 @@ public:
 
 };
 
+class ship: public spaceStuff{
+  
+  private:
+
+  public:
+
+};
+
 void gravity(spaceStuff & stuff,spaceStuff & anchor){
   Vector2 delta={anchor.myKinematics.pos.x-stuff.myKinematics.pos.x,anchor.myKinematics.pos.y-stuff.myKinematics.pos.y};
   if (delta.x==0){delta.x=.1;};
