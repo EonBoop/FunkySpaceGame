@@ -2,12 +2,14 @@
 #include "string"
 #include <cmath>
 #include <cstdlib>
+#include <fstream>
 #include <string>
 #include <filesystem>
 #include <math.h>
 #include <iostream>
 #include <vector>
 #include "spacestuff.h"
+#include "json.hpp"
 
 void drawgrid(){
 const int spacing = 50;
@@ -24,6 +26,16 @@ const int screenHeight = 900;
             DrawLine(0, y, screenWidth, y, GRAY); // Horizontal lines
         }
 
+
+}
+
+nlohmann::json readShipData(const std::string& filepath){
+  //this needs error handling
+
+  std::ifstream file(filepath);
+  nlohmann::json data = nlohmann::json::parse(file);
+
+  return data;
 
 }
 
@@ -60,15 +72,17 @@ void doEverything(std::vector<spaceStuff*> spaceList,std::vector<int> options){
     
 
 
-int main(){
-    //intialization
+int main(){ 
+  //intialization
     InitWindow(0, 0, "Rotating Image around Center");
     SetTargetFPS(60);
-    
+    nlohmann::json shipjson = readShipData("/home/eon/fucking_around/c++/game/funkySpaceGame/objectData/yShip.json");
+    std::cout << shipjson.at("filepath");
     std::vector<spaceStuff*> spaceList;
+    std::string fuck=shipjson.at("filepath");
 
-
-    spaceStuff fighter("/home/eon/fucking_around/c++/game/funkySpaceGame/assets/YShip.png", {0.0,0.0,0.00}, {{0.0,0.0},{0.0,0.0},{0.0,0.0}},1 );
+    spaceStuff fighter(fuck.c_str(), {0.0,0.0,0.00}, {{0.0,0.0},{0.0,0.0},{0.0,0.0}},1 );
+   // spaceStuff fighter("/home/eon/fucking_around/c++/game/funkySpaceGame/assets/YShip.png", {0.0,0.0,0.00}, {{0.0,0.0},{0.0,0.0},{0.0,0.0}},1 );
     spaceStuff rock("/home/eon/fucking_around/c++/game/funkySpaceGame/assets/asteriod.png",{0.0,0.0,1.0},{{0.0,0.0},{0.0,0.0},{500.0,100.0}},1);
     spaceList.push_back(&fighter);
     spaceList.push_back(&rock);
