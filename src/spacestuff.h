@@ -7,6 +7,9 @@
 #include <filesystem>
 #include <math.h>
 #include <iostream>
+#include "json.hpp"
+#include <fstream>
+
 
 class spaceStuff{
 
@@ -96,4 +99,62 @@ void gravity(spaceStuff & stuff,spaceStuff & anchor){
   //}
   
 //}
+
+nlohmann::json loadJSON (const std::string& filepath){
+  //this needs error handling
+
+  std::ifstream file(filepath);
+  nlohmann::json data = nlohmann::json::parse(file);
+
+  return data;
+
+}
+
+class spaceStuffLoaded{
+
+  private:
+    Texture2D texture;
+    float textureWidth,textureHeight;
+    Vector2 origin;
+public: 
+    struct kinematics {Vector2 acc;Vector2 vel;Vector2 pos;} myKinematics;
+    struct rotation {float rot;float rotVel; float rotAcc;} myRotation;
+    int mass;
+
+    spaceStuffLoaded(const nlohmann::json& jsonData){
+   
+    std::string pathToFile=jsonData.at("filepath");
+
+    texture = LoadTexture(pathToFile.c_str());
+
+    textureWidth = texture.width;
+    textureHeight= texture.height;
+    origin = { textureWidth / 2, textureHeight / 2 }; // Center of the texture
+    myKinematics={{jsonData.at("posx"),jsonData.at("posy")},{jsonData.at("velx"),jsonData.at("vely")},{jsonData.at("accx"),jsonData.at("accy")}};
+    myRotation={jsonData.at("rotpos"),jsonData.at("rotvel"),jsonData.at("rotacc")};
+    mass=jsonData.at("mass");
+ };
+
+    void unload(){
+    UnloadTexture(texture);
+    return;
+  }
+    void draw(){
+
+      DrawTexturePro(texture,{0.0f,0.0f,textureWidth,textureHeight}, {myKinematics.pos.x,myKinematics.pos.y,textureWidth,textureHeight},origin,myRotation.rot , WHITE);
+    return;
+  };  
+    void animate(){
+      myKinematics.vel.x+=myKinematics.acc.x;
+      myKinematics.vel.y+=myKinematics.acc.y;
+      myKinematics.pos.x+=myKinematics.vel.x;
+      myKinematics.pos.y+=myKinematics.vel.y;
+      
+      myRotation.rotVel+=myRotation.rotAcc;
+      myRotation.rot+=myRotation.rotVel;
+      return;
+    };
+
+};
+
 

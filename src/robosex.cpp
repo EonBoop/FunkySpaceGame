@@ -81,10 +81,11 @@ int main(){
     std::vector<spaceStuff*> spaceList;
     std::string fuck=shipjson.at("filepath");
 
-    spaceStuff fighter(fuck.c_str(), {0.0,0.0,0.00}, {{0.0,0.0},{0.0,0.0},{0.0,0.0}},1 );
+    spaceStuffLoaded fighter(shipjson);  
+  //spaceStuff fighter(fuck.c_str(), {0.0,0.0,0.00}, {{0.0,0.0},{0.0,0.0},{0.0,0.0}},1 );
    // spaceStuff fighter("/home/eon/fucking_around/c++/game/funkySpaceGame/assets/YShip.png", {0.0,0.0,0.00}, {{0.0,0.0},{0.0,0.0},{0.0,0.0}},1 );
     spaceStuff rock("/home/eon/fucking_around/c++/game/funkySpaceGame/assets/asteriod.png",{0.0,0.0,1.0},{{0.0,0.0},{0.0,0.0},{500.0,100.0}},1);
-    spaceList.push_back(&fighter);
+    //spaceList.push_back(&fighter);
     spaceList.push_back(&rock);
     std::vector<int> options;
     options.push_back(1);
@@ -111,11 +112,12 @@ int main(){
     if(IsKeyDown(KEY_C)) camera.zoom *= 1.1;
     if(IsKeyDown(KEY_V)) camera.zoom /=1.1;
     
-    gravity(fighter,rock);
+    //gravity(fighter,rock);
     camera.target = (Vector2{(float)fighter.myKinematics.pos.x+20.0f,(float)fighter.myKinematics.pos.y+20.0f});
     
     BeginDrawing();
-    
+    //delete the fighter.draw please
+    fighter.draw();
     ClearBackground(RAYWHITE);
     BeginMode2D(camera);
     drawgrid();
