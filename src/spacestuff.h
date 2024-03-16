@@ -63,25 +63,6 @@ class ship: public spaceStuff{
   public:
 
 };
-
-void gravity(spaceStuff & stuff,spaceStuff & anchor){
-  Vector2 delta={anchor.myKinematics.pos.x-stuff.myKinematics.pos.x,anchor.myKinematics.pos.y-stuff.myKinematics.pos.y};
-  if (delta.x==0){delta.x=.1;};
-  if (delta.y==0){delta.y=.1;};
-  float magnitude=stuff.mass*anchor.mass/sqrt((delta.x*delta.x)+(delta.y*delta.y));
-  float angle=atanf(delta.x/delta.y);
-  
-  if (delta.y>0){
-  stuff.myKinematics.vel.x+=magnitude*sinf(angle);
-  stuff.myKinematics.vel.y+=magnitude*cosf(angle);
-  }
-  else {
-  stuff.myKinematics.vel.x-=magnitude*sinf(angle);
-  stuff.myKinematics.vel.y-=magnitude*cosf(angle);
-  }
-  
-}
-
 //void gravity(spaceStuff & stuff,Vector2 origin){
 //  Vector2 delta={origin.x-stuff.myKinematics.pos.x,origin.y-stuff.myKinematics.pos.y};
 //  if (delta.x==0){delta.x=.1;};
@@ -130,7 +111,7 @@ public:
     textureWidth = texture.width;
     textureHeight= texture.height;
     origin = { textureWidth / 2, textureHeight / 2 }; // Center of the texture
-    myKinematics={{jsonData.at("posx"),jsonData.at("posy")},{jsonData.at("velx"),jsonData.at("vely")},{jsonData.at("accx"),jsonData.at("accy")}};
+    myKinematics={{jsonData.at("accx"),jsonData.at("accy")},{jsonData.at("velx"),jsonData.at("vely")},{jsonData.at("posx"),jsonData.at("posy")}};
     myRotation={jsonData.at("rotpos"),jsonData.at("rotvel"),jsonData.at("rotacc")};
     mass=jsonData.at("mass");
  };
@@ -158,3 +139,20 @@ public:
 };
 
 
+void gravity(spaceStuffLoaded & stuff,spaceStuffLoaded & anchor){
+  Vector2 delta={anchor.myKinematics.pos.x-stuff.myKinematics.pos.x,anchor.myKinematics.pos.y-stuff.myKinematics.pos.y};
+  if (delta.x==0){delta.x=.1;};
+  if (delta.y==0){delta.y=.1;};
+  float magnitude=stuff.mass*anchor.mass/sqrt((delta.x*delta.x)+(delta.y*delta.y));
+  float angle=atanf(delta.x/delta.y);
+  
+  if (delta.y>0){
+  stuff.myKinematics.vel.x+=magnitude*sinf(angle);
+  stuff.myKinematics.vel.y+=magnitude*cosf(angle);
+  }
+  else {
+  stuff.myKinematics.vel.x-=magnitude*sinf(angle);
+  stuff.myKinematics.vel.y-=magnitude*cosf(angle);
+  }
+  
+}
