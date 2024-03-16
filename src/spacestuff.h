@@ -56,7 +56,7 @@ public:
 
 };
 
-class ship: public spaceStuff{
+class background: public spaceStuff{
   
   private:
 
