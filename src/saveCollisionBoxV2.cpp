@@ -16,7 +16,8 @@ return ss.str();
 
 int main(int argc, char* argv[]){
 
-
+  std::string inputfilestring;
+  std::string outputfilestring;
   switch (argc){
     case 1:
     return 0;
@@ -24,8 +25,8 @@ int main(int argc, char* argv[]){
     std::cout << "give two arguments first is json to load from second is json to save to" << std::endl;
     return 0;
     default:
-      std::string inputfilestring = argv[1];
-      std::string outputfilestring = argv[2];
+      inputfilestring = argv[1];
+      outputfilestring = argv[2];
       break;
   } 
 
@@ -33,27 +34,34 @@ int main(int argc, char* argv[]){
   SetTargetFPS(60);
 
   //nlohmann::json objectData=loadJSON("/home/eon/fucking_around/c++/game/funkySpaceGame/objectData/yShip.json");
-  std::ifstream inputfile("/home/eon/fucking_around/c++/game/funkySpaceGame/objectData/yShip.json");
-  nlohmann::json objectData = nlohmann::json::parse(inputfile);
+  std::ifstream inputfile(inputfilestring);
+  //nlohmann::json objectData = nlohmann::json::parse(inputfile);
+  nlohmann::json objectData = loadJSON(inputfilestring);
+  if (objectData==nullptr){return 0;}
+
+  //changing starting position to the middle of the screen
   objectData.at("posx")=GetScreenWidth()/2;
   objectData.at("posy")=GetScreenHeight()/2;
+
   spaceStuffLoaded object(objectData);
   std::vector<Vector2> pointList;
   Vector2 mousePoint;
-  
+  Vector2 mousePoint2;
 
 
   while(!WindowShouldClose()){
 
     mousePoint = GetMousePosition();
+    mousePoint2.x = mousePoint.x-object.myKinematics.pos.x;
+    mousePoint2.y = mousePoint.y-object.myKinematics.pos.y;
+
     if(IsKeyPressed(KEY_ENTER)){
-      pointList.push_back(mousePoint);
+      pointList.push_back(mousePoint2);
     }
 
     if(IsKeyPressed(KEY_BACKSPACE)&&(pointList.size()>0)){
       pointList.pop_back();
     }
-    std::cout << argc << std::endl;
     BeginDrawing();
     ClearBackground(RAYWHITE);
     object.draw();
@@ -61,16 +69,24 @@ int main(int argc, char* argv[]){
       DrawCircleV(pointList[i],5,BLUE);
     }
     DrawCircleV(mousePoint,5,BLUE);
-    DrawText(vector2String(mousePoint).c_str(),100,100,200,GREEN);
+    DrawText(vector2String(mousePoint2).c_str(),100,100,200,GREEN);
 
     EndDrawing();
   }
+
+  //close out tasks
   object.unload();
   CloseWindow();
   for (int i = 0;i<pointList.size();i++){
     objectData["hitBox"][i]=vector2String(pointList[i]);
   }
-  std::ofstream outputFile("/home/eon/fucking_around/c++/game/funkySpaceGame/objectData/yShipTestSave.json");
+
+  std::ofstream outputFile(outputfilestring,std::ios::out);
+    if (!outputFile.is_open()) {
+        std::cerr << "Error: Unable to open file: " << outputfilestring  << std::endl;
+    }
+    else {
   outputFile << objectData;
+    }
 }
 

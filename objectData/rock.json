@@ -1,0 +1,19 @@
+{
+  "filepath": "/home/eon/fucking_around/c++/game/funkySpaceGame/assets/asteriod.png",
+  "posx": -10,
+  "posy": 10,
+  "velx": 1,
+  "vely": 0,
+  "accx": 0,
+  "accy": 0,
+  "rotpos": 0,
+  "rotvel": 0,
+  "rotacc": 0,
+  "mass": 20,
+  "hitBox":  [
+    {"x": 0, "y": 0},
+    {"x": 100, "y": 0},
+    {"x": 100, "y": 100},
+    {"x": 0, "y": 100}
+  ]
+}

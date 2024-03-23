@@ -60,19 +60,21 @@ void doEverything(std::vector<spaceStuffLoaded*> spaceList,std::vector<int> opti
         case 3:
           spaceList[i]->unload();
           break;
-    
+        case 4:
+          spaceStuffLoaded& thing = *spaceList[i];
+          for (int k = 0; k < spaceList.size(); k++) {
+            if (k!=i) {
+              spaceStuffLoaded& anchor = *spaceList[k];
+              gravity(thing,anchor);
+            }
+          }
           //add more cases and methods to spaceStuff and doEverything as needed
        }
     };
   };
   return ;
 }
-//for reference
-//struct kinematics {Vector2 acc;Vector2 vel;Vector2 pos;} myKinematics;
-//struct rotation {float rot;float rotVel; float rotAcc;} myRotation;
-//spaceStuff(const char *pathToFile,rotation inRotation,kinematics inKinematics){
-    
-
+   
 
 int main(){ 
   //intialization
@@ -84,16 +86,16 @@ int main(){
     std::string fuck=shipjson.at("filepath");
 
     spaceStuffLoaded fighter(shipjson);  
-  //spaceStuff fighter(fuck.c_str(), {0.0,0.0,0.00}, {{0.0,0.0},{0.0,0.0},{0.0,0.0}},1 );
-   // spaceStuff fighter("/home/eon/fucking_around/c++/game/funkySpaceGame/assets/YShip.png", {0.0,0.0,0.00}, {{0.0,0.0},{0.0,0.0},{0.0,0.0}},1 );
-    
+    spaceStuffLoaded fighter2(shipjson);
+    fighter2.myKinematics.pos.x=500;
     spaceStuffLoaded rock(readShipData("/home/eon/fucking_around/c++/game/funkySpaceGame/objectData/rock.json"));
     spaceList.push_back(&fighter);
+    spaceList.push_back(&fighter2);
     spaceList.push_back(&rock);
     std::vector<int> options;
     options.push_back(1);
     options.push_back(2);
-
+    options.push_back(4);
 
     Camera2D camera = {0};
     camera.target = (Vector2{(float)fighter.myKinematics.pos.x+20.0f,(float)fighter.myKinematics.pos.y+20.0f});
