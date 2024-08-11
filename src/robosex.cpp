@@ -80,7 +80,7 @@ int main(){
   //intialization
     InitWindow(0, 0, "Rotating Image around Center");
     SetTargetFPS(60);
-    nlohmann::json shipjson = readShipData("/home/eon/fucking_around/c++/game/funkySpaceGame/objectData/yShip.json");
+    nlohmann::json shipjson = readShipData("/home/eon/fucking_around/c++/game/funkySpaceGame/objectData/yShipTestSave.json");
     std::cout << shipjson.at("filepath");
     std::vector<spaceStuffLoaded*> spaceList;
     std::string fuck=shipjson.at("filepath");
@@ -88,7 +88,7 @@ int main(){
     spaceStuffLoaded fighter(shipjson);  
     spaceStuffLoaded fighter2(shipjson);
     fighter2.myKinematics.pos.x=500;
-    spaceStuffLoaded rock(readShipData("/home/eon/fucking_around/c++/game/funkySpaceGame/objectData/rock.json"));
+    spaceStuffLoaded rock(readShipData("/home/eon/fucking_around/c++/game/funkySpaceGame/objectData/rockTestSave.json"));
     spaceList.push_back(&fighter);
     spaceList.push_back(&fighter2);
     spaceList.push_back(&rock);
@@ -120,6 +120,12 @@ int main(){
     gravity(fighter,rock);
     camera.target = (Vector2{(float)fighter.myKinematics.pos.x+20.0f,(float)fighter.myKinematics.pos.y+20.0f});
     
+    if(fighter.checkCollision(rock)){
+      std::cout<<"CRASH OF FUCK AHH"<< std::endl;
+    }
+
+      
+
     BeginDrawing();
     //delete the fighter.draw please
     ClearBackground(RAYWHITE);

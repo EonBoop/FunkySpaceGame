@@ -24,8 +24,8 @@ int main(int argc, char* argv[]){
     std::cout << "give two arguments first is json to load from second is json to save to" << std::endl;
     return 0;
     default:
-      std::string inputfilestring = argv[1];
-      std::string outputfilestring = argv[2];
+      //std::string inputfilestring = argv[1];
+      //std::string outputfilestring = argv[2];
       break;
   } 
 

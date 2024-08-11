@@ -114,24 +114,28 @@ public:
     int mass;
     float textureRadius;
 
-    Vector2 boundryBox[]; //boundryBox[0] should equal the number of elements in boundryBox
+    //Vector2 boundryBox[]; 
+  //boundryBox[0] should equal the number of elements in boundryBox. how do I size this hhhmmmmininint
+    Vector2* boundryBox = new Vector2[1]; //I do not understand what the fuck this smart array is and I pray to god it works with the C parts of raylib
+
     spaceStuffLoaded(const nlohmann::json& jsonData){
    
-    std::string pathToFile=jsonData.at("filepath");
+      std::string pathToFile=jsonData.at("filepath");
 
-    texture = LoadTexture(pathToFile.c_str());
+      texture = LoadTexture(pathToFile.c_str());
 
-    textureWidth = texture.width;
-    textureHeight= texture.height;
-    textureRadius = std::sqrt(textureHeight*textureHeight+textureWidth*textureWidth);
-    origin = { textureWidth / 2, textureHeight / 2 }; // Center of the texture
-    myKinematics={{jsonData.at("accx"),jsonData.at("accy")},{jsonData.at("velx"),jsonData.at("vely")},{jsonData.at("posx"),jsonData.at("posy")}};
-    myRotation={jsonData.at("rotpos"),jsonData.at("rotvel"),jsonData.at("rotacc")};
-    mass=jsonData.at("mass");
-   // Vector2 fuck =jsonData.at("hitBox");
-    //Vector2 hitBox[999];
+      textureWidth = texture.width;
+      textureHeight= texture.height;
+      textureRadius = std::sqrt(textureHeight*textureHeight+textureWidth*textureWidth);
+      origin = { textureWidth / 2, textureHeight / 2 }; // Center of the texture
+      myKinematics={{jsonData.at("accx"),jsonData.at("accy")},{jsonData.at("velx"),jsonData.at("vely")},{jsonData.at("posx"),jsonData.at("posy")}};
+      myRotation={jsonData.at("rotpos"),jsonData.at("rotvel"),jsonData.at("rotacc")};
+      mass=jsonData.at("mass");
 
-      //hitBox[0]=fuck;
+      std::string test;
+      auto& hitBoxArray = jsonData["hitBox"];
+      std::cout<<hitBoxArray<<std::endl;
+    
  };
     void unload(){
     UnloadTexture(texture);
@@ -159,6 +163,7 @@ public:
     
     if (delta<(textureRadius+otherObject.textureRadius)){
       for (int i = 0; i < boundryBox[0].x; i++) {
+        //boundryBox[0].x needs to be excluded
         if (CheckCollisionPointPoly(boundryBox[i],otherObject.boundryBox,otherObject.boundryBox[0].x)){
           return 1;
         }
